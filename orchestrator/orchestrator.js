@@ -23,18 +23,6 @@ redisClient.connect().then(() => {
     console.log(err.message);
 })
 
-redisClient.on('connect', () => {
-  console.log('Connected to Redis');
-});
-
-redisClient.on('ready', () => {
-  console.log('Redis client is ready');
-});
-
-redisClient.on('reconnecting', (delay, attempt) => {
-  console.log(`Reconnecting to Redis (attempt ${attempt}) after ${delay}ms delay`);
-});
-
 redisClient.on('error', (err) => {
   console.error(`Error connecting to Redis: ${err.message}`);
 });
@@ -56,8 +44,6 @@ io.on('connection', (nodeSocket) => {
             console.log(result)
           }
         });
-
-        console.log(keys,'KEYS')
 
           if (!keys.includes(uniqueKey)) {
             console.log(`Invalid unique key received from Node ${nodeSocket.id}`);
@@ -87,8 +73,6 @@ io.on('connection', (nodeSocket) => {
 app.get('/wipeMessages', async(req, res) => {
  const deletedResult = await redisClient.del('transcript')
 
- console.log(deletedResult,'WHAAA')
-
  if(deletedResult === 0) {
   res.send('Unable to destroy')
  } else if (deletedResult === 1) {
@@ -109,7 +93,6 @@ app.get('/generateUniqueKey', (req, res) => {
 // Expose an endpoint to build the transcript file
 app.get('/buildTranscript', async (req, res) => {
   const transcriptPath = path.join(__dirname, 'transcript.txt');
-  console.log(transcriptPath, 'PATH');
   const transcriptStream = fs.createWriteStream(transcriptPath);
 
   try {

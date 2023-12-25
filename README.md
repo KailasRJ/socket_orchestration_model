@@ -52,15 +52,17 @@ cd child_node
 node child.js
 
 
-## Usage
+## APIs
+
 Orchestrator
-POST /generateUniqueKey: Generate a unique key for a child node.
-GET /send-message?key=uniqueKey&message=encryptedMessage: Send a secure message to a child node.
-GET /wipeMessages: Wipe out stored messages in the Redis database.
-GET /buildTranscript: Build a transcript of messages from the Redis database.
-GET /send-message-to-node?nodeId=nodeId&message=encryptedMessage: Send a message to a specific child node.
+- POST /generateUniqueKey: Generate a unique key for a child node.
+- GET /send-message?key=uniqueKey&message=encryptedMessage: Send a secure message to a child node.
+- GET /wipeMessages: Wipe out stored messages in the Redis database.
+- GET /buildTranscript: Build a transcript of messages from the Redis database.
+- GET /send-message-to-node?nodeId=nodeId&message=encryptedMessage: Send a message to a specific child node.
+
 Child Node
-GET /send-message?message=encryptedMessage: Send a secure message to the orchestrator.
+- GET /send-message?message=encryptedMessage: Send a secure message to the orchestrator.
 
 ## Security
 Messages exchanged between the orchestrator and child nodes are encrypted using a secret key, ensuring confidentiality and data integrity.
